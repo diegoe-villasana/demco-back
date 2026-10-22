@@ -1,6 +1,14 @@
 import { Router } from 'express';
 import { randomUUID } from 'node:crypto';
-import { db, buscarEncuesta, versionActiva, type EncuestaVersion, type Pregunta, type Seccion } from '../db.js';
+import { routerSeguro } from '../async-handler.js';
+import {
+  versionActiva,
+  type EncuestaVersion,
+  type Pregunta,
+  type RespuestaEncuesta,
+  type Seccion,
+} from '../db.js';
+import { repo } from '../repositorio.js';
 import { calcularEstadisticas } from '../estadisticas.js';
 import { enviarCorreo, construirCorreoEncuestas, type EncuestaParaCorreo } from '../mailer.js';
 import {
@@ -10,9 +18,10 @@ import {
   usaOpciones,
 } from '../tipos.js';
 
-export const encuestasRouter = Router();
+export const encuestasRouter = routerSeguro(Router());
 
 const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const REGEX_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function urlBasePublica(): string {
   return (process.env.PUBLIC_URL ?? 'http://localhost:4000').replace(/\/$/, '');
@@ -45,20 +54,11 @@ function aplanar(
 
 // Resumen de actividad de una encuesta: cuántas respuestas tiene, cuándo llegó
 // la última y a cuántos destinatarios se le envió.
-function resumenDe(encuestaId: string): {
-  total: number;
-  ultima: string | null;
-  correos: number;
-} {
-  let total = 0;
-  let ultima: string | null = null;
-  for (const r of db.data!.respuestas) {
-    if (r.encuestaId !== encuestaId) continue;
-    total++;
-    if (!ultima || r.fechaRespuesta > ultima) ultima = r.fechaRespuesta;
-  }
-  const correos = db.data!.enviosCorreo.filter((e) => e.encuestaIds.includes(encuestaId)).length;
-  return { total, ultima, correos };
+function resumenDe(
+  resumen: Map<string, { total: number; ultima: string | null; correos: number }>,
+  encuestaId: string
+): { total: number; ultima: string | null; correos: number } {
+  return resumen.get(encuestaId) ?? { total: 0, ultima: null, correos: 0 };
 }
 
 // Contenido editable de una encuesta, ya validado y normalizado.
@@ -228,13 +228,17 @@ function validarEncuesta(cuerpo: unknown): { error?: string; limpia?: EncuestaEd
 
 // GET /api/encuestas -> lista con la versión activa de cada encuesta
 encuestasRouter.get('/', async (_req, res) => {
-  await db.read();
-  const lista = db.data!.encuestas
+  const [encuestas, resumen] = await Promise.all([
+    repo.listarEncuestas(),
+    repo.resumenPorEncuesta(),
+  ]);
+
+  const lista = encuestas
     .map((e) => {
       const v = versionActiva(e);
       if (!v) return null;
-      const resumen = resumenDe(e.id);
-      return aplanar(e.id, v, resumen.total, resumen.ultima, resumen.correos);
+      const r = resumenDe(resumen, e.id);
+      return aplanar(e.id, v, r.total, r.ultima, r.correos);
     })
     .filter(Boolean);
   res.json(lista);
@@ -245,17 +249,22 @@ encuestasRouter.get('/', async (_req, res) => {
 // IMPORTANTE: va antes de `/:id`, porque Express matchearía "/estadisticas"
 // como si fuera el id de una encuesta.
 encuestasRouter.get('/estadisticas', async (_req, res) => {
-  await db.read();
-  res.json(calcularEstadisticas());
+  const [encuestas, respuestas, envios] = await Promise.all([
+    repo.listarEncuestas(),
+    repo.listarRespuestas(),
+    repo.listarEnvios(),
+  ]);
+  res.json(calcularEstadisticas({ encuestas, respuestas, envios }));
 });
 
 // GET /api/encuestas/:id/versiones -> historial completo
 encuestasRouter.get('/:id/versiones', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const [encuesta, conteo] = await Promise.all([
+    repo.obtenerEncuesta(req.params.id),
+    repo.conteoRespuestasPorVersion(),
+  ]);
   if (!encuesta) return res.status(404).json({ error: 'Encuesta no encontrada' });
 
-  const activas = new Set(db.data!.respuestas.map((r) => r.versionId));
   res.json(
     encuesta.versiones.map((v) => ({
       id: v.id,
@@ -265,35 +274,46 @@ encuestasRouter.get('/:id/versiones', async (req, res) => {
       preguntas: v.preguntas,
       secciones: v.secciones ?? [],
       creadaEn: v.creadaEn,
-      sellada: v.sellada || activas.has(v.id),
-      totalRespuestas: db.data!.respuestas.filter((r) => r.versionId === v.id).length,
+      sellada: v.sellada || (conteo.get(v.id) ?? 0) > 0,
+      totalRespuestas: conteo.get(v.id) ?? 0,
     }))
   );
 });
 
 // Aplana una versión concreta contando solo las respuestas de ESA versión.
-function aplanarVersion(encuestaId: string, version: EncuestaVersion) {
-  const propias = db.data!.respuestas.filter((r) => r.versionId === version.id);
+function aplanarVersion(
+  encuestaId: string,
+  version: EncuestaVersion,
+  propias: RespuestaEncuesta[],
+  correos: number
+) {
   const ultima = propias.length
     ? propias.reduce((a, b) => (a.fechaRespuesta > b.fechaRespuesta ? a : b)).fechaRespuesta
     : null;
-  return aplanar(encuestaId, version, propias.length, ultima, resumenDe(encuestaId).correos);
+  return aplanar(encuestaId, version, propias.length, ultima, correos);
 }
 
 // GET /api/encuestas/:id/versiones/:versionId -> una versión concreta
 encuestasRouter.get('/:id/versiones/:versionId', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const [encuesta, respuestas, resumen] = await Promise.all([
+    repo.obtenerEncuesta(req.params.id),
+    repo.listarRespuestas(req.params.id),
+    repo.resumenPorEncuesta(),
+  ]);
   if (!encuesta) return res.status(404).json({ error: 'Encuesta no encontrada' });
   const version = encuesta.versiones.find((v) => v.id === req.params.versionId);
   if (!version) return res.status(404).json({ error: 'Versión no encontrada' });
-  res.json(aplanarVersion(encuesta.id, version));
+
+  const propias = respuestas.filter((r) => r.versionId === version.id);
+  res.json(aplanarVersion(encuesta.id, version, propias, resumenDe(resumen, encuesta.id).correos));
 });
 
 // GET /api/encuestas/:id -> versión activa
 encuestasRouter.get('/:id', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const [encuesta, resumen] = await Promise.all([
+    repo.obtenerEncuesta(req.params.id),
+    repo.resumenPorEncuesta(),
+  ]);
   if (!encuesta) {
     return res.status(404).json({ error: 'Encuesta no encontrada' });
   }
@@ -301,8 +321,8 @@ encuestasRouter.get('/:id', async (req, res) => {
   if (!version) {
     return res.status(404).json({ error: 'La encuesta no tiene ninguna versión' });
   }
-  const resumen = resumenDe(encuesta.id);
-  res.json(aplanar(encuesta.id, version, resumen.total, resumen.ultima, resumen.correos));
+  const r = resumenDe(resumen, encuesta.id);
+  res.json(aplanar(encuesta.id, version, r.total, r.ultima, r.correos));
 });
 
 // POST /api/encuestas -> crea una encuesta nueva con su versión 1
@@ -310,11 +330,10 @@ encuestasRouter.post('/', async (req, res) => {
   const { error, limpia } = validarEncuesta(req.body);
   if (error) return res.status(400).json({ error });
 
-  await db.read();
   const ahora = new Date().toISOString();
   const id = `enc-${randomUUID().slice(0, 8)}`;
 
-  db.data!.encuestas.push({
+  await repo.crearEncuesta({
     id,
     creadaEn: ahora,
     versiones: [
@@ -331,7 +350,6 @@ encuestasRouter.post('/', async (req, res) => {
     ],
   });
 
-  await db.write();
   res.status(201).json({ id });
 });
 
@@ -340,8 +358,7 @@ encuestasRouter.put('/:id/versiones/:versionId', async (req, res) => {
   const { error, limpia } = validarEncuesta(req.body);
   if (error) return res.status(400).json({ error });
 
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const encuesta = await repo.obtenerEncuesta(req.params.id);
   if (!encuesta) return res.status(404).json({ error: 'Encuesta no encontrada' });
 
   const version = encuesta.versiones.find((v) => v.id === req.params.versionId);
@@ -361,15 +378,26 @@ encuestasRouter.put('/:id/versiones/:versionId', async (req, res) => {
   version.preguntas = limpia!.preguntas!;
   version.secciones = limpia!.secciones;
 
-  await db.write();
-  res.json(aplanarVersion(encuesta.id, version));
+  await repo.actualizarVersion(encuesta.id, version);
+
+  const [propias, resumen] = await Promise.all([
+    repo.listarRespuestas(encuesta.id),
+    repo.resumenPorEncuesta(),
+  ]);
+  res.json(
+    aplanarVersion(
+      encuesta.id,
+      version,
+      propias.filter((r) => r.versionId === version.id),
+      resumenDe(resumen, encuesta.id).correos
+    )
+  );
 });
 
 // POST /api/encuestas/:id/versiones -> crea una versión nueva.
 // Acepta el contenido editado; si no viene, copia la versión activa.
 encuestasRouter.post('/:id/versiones', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const encuesta = await repo.obtenerEncuesta(req.params.id);
   if (!encuesta) return res.status(404).json({ error: 'Encuesta no encontrada' });
 
   const base = req.body?.desdeVersionId
@@ -401,19 +429,29 @@ encuestasRouter.post('/:id/versiones', async (req, res) => {
     creadaEn: new Date().toISOString(),
     sellada: false,
   };
-  encuesta.versiones.push(version);
 
-  await db.write();
-  res.status(201).json(aplanarVersion(encuesta.id, version));
+  await repo.crearVersion(encuesta.id, version);
+
+  const [propias, resumen] = await Promise.all([
+    repo.listarRespuestas(encuesta.id),
+    repo.resumenPorEncuesta(),
+  ]);
+  res.status(201).json(
+    aplanarVersion(
+      encuesta.id,
+      version,
+      propias.filter((r) => r.versionId === version.id),
+      resumenDe(resumen, encuesta.id).correos
+    )
+  );
 });
 
 // DELETE /api/encuestas/:id
 encuestasRouter.delete('/:id', async (req, res) => {
-  await db.read();
-  const i = db.data!.encuestas.findIndex((e) => e.id === req.params.id);
-  if (i === -1) return res.status(404).json({ error: 'Encuesta no encontrada' });
-  db.data!.encuestas.splice(i, 1);
-  await db.write();
+  const encuesta = await repo.obtenerEncuesta(req.params.id);
+  if (!encuesta) return res.status(404).json({ error: 'Encuesta no encontrada' });
+
+  await repo.borrarEncuesta(encuesta.id);
   res.status(204).end();
 });
 
@@ -425,9 +463,7 @@ encuestasRouter.post('/respuestas', async (req, res) => {
     return res.status(400).json({ error: 'Faltan campos: encuestaId, respuestas, fechaRespuesta' });
   }
 
-  await db.read();
-
-  const encuesta = buscarEncuesta(encuestaId);
+  const encuesta = await repo.obtenerEncuesta(encuestaId);
   if (!encuesta) {
     return res.status(404).json({ error: 'La encuesta referenciada no existe' });
   }
@@ -443,13 +479,16 @@ encuestasRouter.post('/respuestas', async (req, res) => {
 
   // Idempotencia: si el front reintenta el envío (p. ej. Background Sync
   // disparó dos veces), no duplicamos la respuesta.
-  const yaExiste = db.data!.respuestas.some((r) => r.id === id);
-  if (yaExiste) {
+  // El id lo genera el cliente, pero la columna es uuid: si llega con otro
+  // formato se genera uno del servidor en vez de fallar la escritura.
+  const idRespuesta = typeof id === 'string' && REGEX_UUID.test(id) ? id : randomUUID();
+  const existentes = await repo.listarRespuestas(encuestaId);
+  if (existentes.some((r) => r.id === idRespuesta)) {
     return res.status(200).json({ ok: true, duplicado: true });
   }
 
-  db.data!.respuestas.push({
-    id: id ?? randomUUID(),
+  await repo.guardarRespuesta({
+    id: idRespuesta,
     encuestaId,
     versionId: version.id,
     respuestas,
@@ -458,16 +497,14 @@ encuestasRouter.post('/respuestas', async (req, res) => {
   });
 
   // Primera respuesta de esta versión: queda sellada para siempre.
-  version.sellada = true;
+  await repo.sellarVersion(version.id);
 
-  await db.write();
   res.status(201).json({ ok: true, versionId: version.id, versionNumero: version.numero });
 });
 
 // GET /api/encuestas/respuestas/todas -> ver todas las respuestas recibidas (uso interno/admin)
 encuestasRouter.get('/respuestas/todas', async (_req, res) => {
-  await db.read();
-  res.json(db.data!.respuestas);
+  res.json(await repo.listarRespuestas());
 });
 
 // POST /api/encuestas/enviar -> envía las encuestas seleccionadas por correo
@@ -490,13 +527,13 @@ encuestasRouter.post('/enviar', async (req, res) => {
     return res.status(400).json({ error: `Correos inválidos: ${invalidos.join(', ')}` });
   }
 
-  await db.read();
-
   // Solo se pueden enviar encuestas que existen en el servidor: el link del
   // correo apunta a /e/:id, que se sirve desde aquí.
+  const surveys = await repo.listarEncuestas();
+  const porId = new Map(surveys.map((e) => [e.id, e]));
   const encuestas = encuestaIds
     .map((eid: string): EncuestaParaCorreo | null => {
-      const enc = buscarEncuesta(eid);
+      const enc = porId.get(eid);
       const v = versionActiva(enc);
       return v ? { id: eid, titulo: v.titulo, descripcion: v.descripcion } : null;
     })
@@ -519,7 +556,7 @@ encuestasRouter.post('/enviar', async (req, res) => {
         texto: contenido.texto,
       });
 
-      db.data!.enviosCorreo.push({
+      await repo.registrarEnvio({
         id: randomUUID(),
         destinatario: correo,
         encuestaIds: encuestas.map((e) => e.id),
@@ -531,7 +568,6 @@ encuestasRouter.post('/enviar', async (req, res) => {
     }
   } catch (err) {
     const mensajeError = err instanceof Error ? err.message : String(err);
-    await db.write();
     return res.status(502).json({
       ok: false,
       error: `Falló el envío a uno o más correos: ${mensajeError}`,
@@ -539,13 +575,10 @@ encuestasRouter.post('/enviar', async (req, res) => {
     });
   }
 
-  await db.write();
   res.status(201).json({ ok: true, enviados: enviados.length, proveedor });
 });
 
 // GET /api/encuestas/:id/respuestas -> respuestas de una encuesta
 encuestasRouter.get('/:id/respuestas', async (req, res) => {
-  await db.read();
-  const respuestas = db.data!.respuestas.filter((r) => r.encuestaId === req.params.id);
-  res.json(respuestas);
+  res.json(await repo.listarRespuestas(req.params.id));
 });

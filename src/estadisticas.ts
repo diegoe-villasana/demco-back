@@ -1,6 +1,6 @@
 import {
-  db,
   versionActiva,
+  type DatosEstadisticas,
   type EncuestaVersion,
   type Pregunta,
   type RespuestaEncuesta,
@@ -164,9 +164,8 @@ function ultima(fechas: string[]): string | null {
 }
 
 /** Calcula el resumen completo del módulo de encuestas. */
-export function calcularEstadisticas(): Estadisticas {
-  const respuestas = db.data!.respuestas;
-  const envios = db.data!.enviosCorreo;
+export function calcularEstadisticas(datos: DatosEstadisticas): Estadisticas {
+  const { encuestas: listaEncuestas, respuestas, envios } = datos;
 
   // Respuestas agrupadas por encuesta (para no recorrer todo por cada una).
   const porEncuesta = new Map<string, RespuestaEncuesta[]>();
@@ -186,7 +185,7 @@ export function calcularEstadisticas(): Estadisticas {
   const encuestas: EstadisticaEncuesta[] = [];
   const alertas: AlertaEncuesta[] = [];
 
-  for (const encuesta of db.data!.encuestas) {
+  for (const encuesta of listaEncuestas) {
     const version = versionActiva(encuesta);
     if (!version) continue;
 

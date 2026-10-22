@@ -3,15 +3,22 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "migrate:supabase": "node scripts/migrar-a-supabase.mjs",
+    "migrate:supabase:huerfanas": "node scripts/migrar-a-supabase.mjs --con-huerfanas",
+    "supabase:verificar": "node scripts/verificar-supabase.mjs",
+    "test:api": "node scripts/probar-api.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
     "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "lowdb": "^7.0.1"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

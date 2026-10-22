@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import { randomUUID } from 'node:crypto';
+import { routerSeguro } from '../async-handler.js';
 import {
-  db,
-  buscarEncuesta,
   versionActiva,
   type FormatoNumero,
   type Pregunta,
   type Seccion,
   type ValorRespuesta,
 } from '../db.js';
+import { repo } from '../repositorio.js';
 import { escapeHtml } from '../mailer.js';
 import {
   FILAS_MATRIZ_DEFAULT,
@@ -22,7 +22,7 @@ import {
   valoresNumericos,
 } from '../tipos.js';
 
-export const publicoRouter = Router();
+export const publicoRouter = routerSeguro(Router());
 
 const BORDES = 'width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;font-family:inherit;font-size:14px;';
 const ETIQUETA =
@@ -401,8 +401,7 @@ function paginaGracias(): string {
 // GET /e/:id -> formulario público para responder la encuesta
 // (/e/:id?ok=1 -> página de gracias tras enviar)
 publicoRouter.get('/:id', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const encuesta = await repo.obtenerEncuesta(req.params.id);
   const version = versionActiva(encuesta);
 
   if (!encuesta || !version) {
@@ -582,8 +581,7 @@ function leerRespuestas(
 }
 
 publicoRouter.post('/:id', async (req, res) => {
-  await db.read();
-  const encuesta = buscarEncuesta(req.params.id);
+  const encuesta = await repo.obtenerEncuesta(req.params.id);
   if (!encuesta) {
     res.status(404).send(renderPagina('<p>Encuesta no encontrada.</p>'));
     return;
@@ -606,7 +604,7 @@ publicoRouter.post('/:id', async (req, res) => {
     Object.assign(respuestas, leerRespuestas(pregunta, body));
   }
 
-  db.data!.respuestas.push({
+  await repo.guardarRespuesta({
     id: randomUUID(),
     encuestaId: encuesta.id,
     versionId: versionSolicitada.id,
@@ -616,9 +614,7 @@ publicoRouter.post('/:id', async (req, res) => {
   });
 
   // Primera respuesta de esta versión: queda sellada y ya no se puede editar.
-  versionSolicitada.sellada = true;
-
-  await db.write();
+  await repo.sellarVersion(versionSolicitada.id);
 
   res.redirect(303, `/e/${encodeURIComponent(encuesta.id)}?ok=1`);
 });
