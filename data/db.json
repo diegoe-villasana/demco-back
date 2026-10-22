@@ -1,0 +1,1037 @@
+{
+  "encuestas": [
+    {
+      "id": "enc-1",
+      "versiones": [
+        {
+          "id": "07b35609-89d4-4061-b53f-824b95bc10e0",
+          "numero": 1,
+          "titulo": "Satisfacción del servicio eléctrico",
+          "descripcion": "Ayúdanos a mejorar tu experiencia con DEMCO",
+          "preguntas": [
+            {
+              "id": "p1",
+              "texto": "¿Qué tan satisfecho estás con la estabilidad del servicio?",
+              "tipo": "escala"
+            },
+            {
+              "id": "p2",
+              "texto": "¿Has tenido interrupciones en el último mes?",
+              "tipo": "opcion_multiple",
+              "opciones": [
+                "Sí",
+                "No"
+              ]
+            },
+            {
+              "id": "p3",
+              "texto": "Comentarios adicionales",
+              "tipo": "texto"
+            }
+          ],
+          "creadaEn": "2026-09-28T18:23:39.909Z",
+          "sellada": true
+        }
+      ],
+      "creadaEn": "2026-09-28T18:23:39.909Z"
+    },
+    {
+      "id": "enc-2",
+      "versiones": [
+        {
+          "id": "edd96990-d7fa-4ce8-a1bd-cefa2891291d",
+          "numero": 1,
+          "titulo": "Interés en energía solar",
+          "preguntas": [
+            {
+              "id": "p1",
+              "texto": "¿Te interesaría instalar paneles solares?",
+              "tipo": "opcion_multiple",
+              "opciones": [
+                "Sí",
+                "No",
+                "Tal vez"
+              ]
+            },
+            {
+              "id": "p2",
+              "texto": "¿Qué te detiene actualmente?",
+              "tipo": "texto"
+            }
+          ],
+          "creadaEn": "2026-09-28T18:23:39.909Z",
+          "sellada": true
+        },
+        {
+          "id": "a3c172dc-fdde-48c5-9725-6764268d8bac",
+          "numero": 2,
+          "titulo": "Interés en energía solar",
+          "preguntas": [
+            {
+              "id": "p1",
+              "texto": "¿Te interesaría instalar paneles solares?",
+              "tipo": "opcion_multiple",
+              "opciones": [
+                "Sí",
+                "No",
+                "Tal vez"
+              ]
+            },
+            {
+              "id": "p2",
+              "texto": "¿Qué te detiene actualmente?",
+              "tipo": "escala"
+            },
+            {
+              "id": "f9a5f79c-804d-464d-b2fe-2e6f6e46184c",
+              "texto": "cuantos años tienes",
+              "tipo": "opcion_multiple",
+              "opciones": [
+                "s",
+                "d"
+              ]
+            }
+          ],
+          "creadaEn": "2026-09-28T20:03:55.573Z",
+          "sellada": true
+        }
+      ],
+      "creadaEn": "2026-09-28T18:23:39.909Z"
+    },
+    {
+      "id": "enc-c2503602",
+      "creadaEn": "2026-09-28T23:33:05.573Z",
+      "versiones": [
+        {
+          "id": "37d1feb2-772f-4a04-a22d-092261ea6a01",
+          "numero": 1,
+          "titulo": "Encuesta de satisfacción DEMCO",
+          "preguntas": [
+            {
+              "id": "ca2ff622-1688-4e69-b2bf-f6cf2744b1a0",
+              "texto": "¿Cuál es tu barrio?",
+              "tipo": "texto",
+              "opciones": [
+                "Centro",
+                "Norte",
+                "Sur"
+              ]
+            },
+            {
+              "id": "8f203ed9-5278-4d7d-8eb3-9bf7ca28a50a",
+              "texto": "¿Qué opinas del servicio al cliente?",
+              "tipo": "texto"
+            },
+            {
+              "id": "b47ca00d-92db-42a6-b660-5ba7870ea0ca",
+              "texto": "¿Cómo calificas estos aspectos?",
+              "tipo": "matriz",
+              "opciones": [
+                "Atención al cliente",
+                "Calidad del servicio técnico"
+              ],
+              "columnas": [
+                "Muy en desacuerdo",
+                "En desacuerdo",
+                "Neutral",
+                "De acuerdo",
+                "Muy de acuerdo"
+              ]
+            },
+            {
+              "id": "06fa88cc-c33e-4f5c-96f1-4b22847f5a24",
+              "texto": "¿Recomendarías los servicios de DEMCO a alguien más?",
+              "tipo": "texto",
+              "opciones": [
+                "Sí",
+                "No"
+              ]
+            }
+          ],
+          "creadaEn": "2026-09-28T23:33:05.573Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-eb9097ea",
+      "creadaEn": "2026-10-04T01:26:15.467Z",
+      "versiones": [
+        {
+          "id": "61390d5d-573c-4f4e-9e35-098b230fca2d",
+          "numero": 1,
+          "titulo": "x",
+          "preguntas": [
+            {
+              "id": "p-dd37f962",
+              "texto": "q",
+              "tipo": "matriz",
+              "opciones": [
+                "f"
+              ]
+            }
+          ],
+          "creadaEn": "2026-10-04T01:26:15.467Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-a8073bc2",
+      "creadaEn": "2026-10-04T01:36:38.078Z",
+      "versiones": [
+        {
+          "id": "39ca8b44-ae56-4149-9b5c-c54bcc3a483c",
+          "numero": 1,
+          "titulo": "y",
+          "preguntas": [
+            {
+              "id": "91798baf-9d09-4fdd-8aab-fa3312b7136b",
+              "texto": "¿Cuál es tu género?",
+              "tipo": "genero",
+              "opciones": [
+                "F",
+                "M"
+              ],
+              "obligatorio": false
+            },
+            {
+              "id": "0e9a9394-d29b-46ec-891b-2729adcefffe",
+              "texto": "as",
+              "tipo": "si_no",
+              "opciones": [
+                "Sí",
+                "No"
+              ]
+            },
+            {
+              "id": "7e696f8a-cff3-4465-ab27-3745a925cec1",
+              "texto": "¿En qué idioma deseas recibir la información?",
+              "tipo": "escala",
+              "minimo": 1,
+              "maximo": 5
+            },
+            {
+              "id": "965725bd-c5b8-4e81-83ca-94dd36ff12ec",
+              "texto": "as",
+              "tipo": "matriz_escala",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "columnas": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ],
+              "maximo": 5
+            }
+          ],
+          "creadaEn": "2026-10-04T01:36:38.078Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-87840efd",
+      "creadaEn": "2026-10-16T17:06:06.329Z",
+      "versiones": [
+        {
+          "id": "008a5685-c52a-442b-9195-4acb89f57d7c",
+          "numero": 1,
+          "titulo": "ffsf",
+          "descripcion": "adad",
+          "preguntas": [
+            {
+              "id": "c2c15e81-ec51-4cc6-9b50-c4d6bc1e1946",
+              "texto": "¿Cuál es tu género?",
+              "tipo": "genero",
+              "opciones": [
+                "F",
+                "M"
+              ],
+              "obligatorio": false
+            },
+            {
+              "id": "001fd464-498b-4dfd-b043-2a3bc09d1546",
+              "texto": "¿En qué idioma deseas recibir la información?",
+              "tipo": "idioma",
+              "opciones": [
+                "Español",
+                "English",
+                "Português",
+                "Français",
+                "Deutsch",
+                "Italiano",
+                "Albanian - Shqip",
+                "Croatian - Hrvatski"
+              ],
+              "obligatorio": false
+            }
+          ],
+          "creadaEn": "2026-10-16T17:06:06.329Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-2da378dc",
+      "creadaEn": "2026-10-16T17:12:40.970Z",
+      "versiones": [
+        {
+          "id": "adda8690-4419-45dc-9448-e4186e3b714a",
+          "numero": 1,
+          "titulo": "13",
+          "descripcion": "13",
+          "preguntas": [
+            {
+              "id": "700e7e6d-2085-4315-9428-a78d2f2dcde8",
+              "texto": "1",
+              "tipo": "opcion_unica",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción",
+                "Última opción"
+              ],
+              "obligatorio": true
+            },
+            {
+              "id": "449a4276-4387-43de-812d-9c3b5a7e190b",
+              "texto": "2",
+              "tipo": "opcion_multiple",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción",
+                "Última opción"
+              ],
+              "obligatorio": true
+            }
+          ],
+          "creadaEn": "2026-10-16T17:12:40.970Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-c02ed6ef",
+      "creadaEn": "2026-10-16T17:13:09.117Z",
+      "versiones": [
+        {
+          "id": "38436450-072f-4fec-b125-a082a8a452e3",
+          "numero": 1,
+          "titulo": "13",
+          "descripcion": "13",
+          "preguntas": [
+            {
+              "id": "a597de91-245a-4d27-b61a-129fc4be9e46",
+              "texto": "123",
+              "tipo": "desplegable",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción",
+                "Última opción"
+              ],
+              "obligatorio": true
+            }
+          ],
+          "creadaEn": "2026-10-16T17:13:09.117Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-1be64f21",
+      "creadaEn": "2026-10-16T17:13:32.144Z",
+      "versiones": [
+        {
+          "id": "d4caea1f-b9f5-400f-9c98-4bc21f504f7f",
+          "numero": 1,
+          "titulo": "1234",
+          "descripcion": "1234",
+          "preguntas": [
+            {
+              "id": "25e8a909-7162-4024-ae05-d2a868759e01",
+              "texto": "123142",
+              "tipo": "escala",
+              "minimo": 1,
+              "maximo": 5
+            }
+          ],
+          "creadaEn": "2026-10-16T17:13:32.144Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-66fcf979",
+      "creadaEn": "2026-10-19T19:11:30.017Z",
+      "versiones": [
+        {
+          "id": "0dff1ea7-8d20-45fa-ae9d-3dd18953df13",
+          "numero": 1,
+          "titulo": "ejemplo1",
+          "preguntas": [
+            {
+              "id": "bc3927ec-f6fb-4176-9d7e-cd8e9ea15f88",
+              "texto": "¿Cuál es tu género?",
+              "tipo": "genero",
+              "opciones": [
+                "F",
+                "M"
+              ],
+              "obligatorio": true
+            },
+            {
+              "id": "812e165d-bd84-40fb-bf60-a8781e41c14d",
+              "texto": "pregunta2",
+              "tipo": "escala",
+              "minimo": 1,
+              "maximo": 5
+            },
+            {
+              "id": "a131a169-f0b2-4a23-a49c-f9c543322459",
+              "texto": "¿En qué idioma deseas recibir la información?",
+              "tipo": "idioma",
+              "opciones": [
+                "Español",
+                "English",
+                "Português",
+                "Français",
+                "Deutsch",
+                "Italiano",
+                "Albanian - Shqip",
+                "Croatian - Hrvatski"
+              ]
+            }
+          ],
+          "creadaEn": "2026-10-19T19:11:30.017Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-0ed9c381",
+      "creadaEn": "2026-10-19T19:30:07.825Z",
+      "versiones": [
+        {
+          "id": "22a56a0c-845b-4cfb-8a0c-42596f51588b",
+          "numero": 1,
+          "titulo": "matriz",
+          "descripcion": "123",
+          "preguntas": [
+            {
+              "id": "da1107fc-bfbb-4a7a-8348-2fd0542e9a75",
+              "texto": "pregunta",
+              "tipo": "matriz_escala",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "columnas": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ],
+              "maximo": 5
+            },
+            {
+              "id": "10a696e8-39fa-45b2-8f2d-0a661f07ee13",
+              "texto": "pregunta2",
+              "tipo": "matriz_doble_eje",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "puntos": 5,
+              "ejeIzquierdo": "Izquierda",
+              "ejeDerecho": "Derecha"
+            }
+          ],
+          "creadaEn": "2026-10-19T19:30:07.825Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-cb779d2f",
+      "creadaEn": "2026-10-19T19:31:20.189Z",
+      "versiones": [
+        {
+          "id": "9a4ee0d2-03f6-4909-8a8e-43a3f2e1bd7f",
+          "numero": 1,
+          "titulo": "12345677",
+          "descripcion": "123",
+          "preguntas": [
+            {
+              "id": "6331110c-f901-4367-a249-89923b9b89f3",
+              "texto": "123",
+              "tipo": "matriz_aumentar",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "columnas": [
+                "Reducir",
+                "Mantener",
+                "Ampliar"
+              ]
+            },
+            {
+              "id": "f933e88b-fbb9-41c4-bb09-4b2ae1d4ebad",
+              "texto": "123",
+              "tipo": "si_no",
+              "opciones": [
+                "Sí",
+                "No"
+              ]
+            },
+            {
+              "id": "b813f136-42e2-45ea-8148-2315cffd09b1",
+              "texto": "123",
+              "tipo": "matriz_escala",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción",
+                "segunda",
+                "tercera"
+              ],
+              "columnas": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ],
+              "maximo": 5
+            }
+          ],
+          "creadaEn": "2026-10-19T19:31:20.189Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-98660c9f",
+      "creadaEn": "2026-10-19T19:32:17.935Z",
+      "versiones": [
+        {
+          "id": "801d254b-9b6d-45b1-9b9e-904a8b70f8e3",
+          "numero": 1,
+          "titulo": "h",
+          "descripcion": "h",
+          "preguntas": [
+            {
+              "id": "f51e2f56-f785-4f0b-949a-42a794bdc091",
+              "texto": "pregunta 123",
+              "tipo": "matriz_aumentar",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "columnas": [
+                "Reducir",
+                "Mantener",
+                "Ampliar"
+              ]
+            }
+          ],
+          "creadaEn": "2026-10-19T19:32:17.935Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-23efd02f",
+      "creadaEn": "2026-10-19T19:33:10.144Z",
+      "versiones": [
+        {
+          "id": "891723ea-d0dc-421c-8eb8-4aaba94c8936",
+          "numero": 1,
+          "titulo": "a",
+          "preguntas": [
+            {
+              "id": "3ac76d68-2556-4a2d-a6b4-ae57bf47310b",
+              "texto": "12345",
+              "tipo": "matriz",
+              "opciones": [
+                "Primera opción",
+                "Segunda opción",
+                "Tercera opción"
+              ],
+              "columnas": [
+                "Muy en desacuerdo",
+                "En desacuerdo",
+                "Neutral",
+                "De acuerdo",
+                "Muy de acuerdo",
+                "muy desa"
+              ]
+            }
+          ],
+          "creadaEn": "2026-10-19T19:33:10.144Z",
+          "sellada": false
+        }
+      ]
+    },
+    {
+      "id": "enc-f8f3c3cb",
+      "creadaEn": "2026-10-21T17:41:01.630Z",
+      "versiones": [
+        {
+          "id": "5b976604-65d3-4998-af1d-3aa0bc948178",
+          "numero": 1,
+          "titulo": "sec",
+          "preguntas": [
+            {
+              "id": "315ded30-ebca-4751-8682-d1a3ba383563",
+              "texto": "¿Cuál es tu género?",
+              "tipo": "genero",
+              "seccionId": "bb68efbb-4f4f-4aaf-8aca-4ea60e5917d9",
+              "opciones": [
+                "F",
+                "M"
+              ]
+            },
+            {
+              "id": "e6d1def1-700d-4531-b0da-27466e52a00e",
+              "texto": "ñlk",
+              "tipo": "si_no",
+              "opciones": [
+                "Sí",
+                "No"
+              ]
+            },
+            {
+              "id": "b6406ed7-6cec-46e7-aad5-204008268819",
+              "texto": "¿En qué idioma deseas recibir la información?",
+              "tipo": "idioma",
+              "seccionId": "bb68efbb-4f4f-4aaf-8aca-4ea60e5917d9",
+              "opciones": [
+                "Español",
+                "English",
+                "Português",
+                "Français",
+                "Deutsch",
+                "Italiano",
+                "Albanian - Shqip",
+                "Croatian - Hrvatski"
+              ]
+            }
+          ],
+          "secciones": [
+            {
+              "id": "bb68efbb-4f4f-4aaf-8aca-4ea60e5917d9",
+              "titulo": "Sección 1"
+            }
+          ],
+          "creadaEn": "2026-10-21T17:41:01.630Z",
+          "sellada": false
+        }
+      ]
+    }
+  ],
+  "respuestas": [
+    {
+      "id": "079779f8-1358-4f9c-adc3-3f5ff3756baf",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 4,
+        "p2": "Sí",
+        "p3": "blabla"
+      },
+      "fechaRespuesta": "2026-08-10T01:15:04.290Z",
+      "recibidoEn": "2026-08-10T01:15:31.438Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "024f4951-5060-47cd-a519-2b2954a223ee",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 5,
+        "p2": "Sí",
+        "p3": "jghf"
+      },
+      "fechaRespuesta": "2026-08-14T00:36:13.973Z",
+      "recibidoEn": "2026-08-14T00:36:14.044Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "103fada4-dac5-4756-8f08-f19d5784eb12",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 4,
+        "p2": "Sí",
+        "p3": "lñhhjhjv"
+      },
+      "fechaRespuesta": "2026-08-14T00:43:01.157Z",
+      "recibidoEn": "2026-08-14T00:43:01.183Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "d231c4dc-aae1-484c-aa8c-009da85106c6",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 4,
+        "p2": "Sí",
+        "p3": "lñksdklsahddb"
+      },
+      "fechaRespuesta": "2026-08-14T00:43:45.272Z",
+      "recibidoEn": "2026-08-14T00:44:02.624Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "90683367-240f-4419-9618-9e8eff7db5cb",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 4,
+        "p2": "Si",
+        "p3": "Excelente servicio"
+      },
+      "fechaRespuesta": "2026-09-28T06:45:50.976Z",
+      "recibidoEn": "2026-09-28T06:45:50.976Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "a76b83b4-beac-440c-a8c7-c5dc0dd8cc0f",
+      "encuestaId": "enc-1",
+      "respuestas": {
+        "p1": 4,
+        "p2": "Sí",
+        "p3": "dadad"
+      },
+      "fechaRespuesta": "2026-09-28T17:29:32.618Z",
+      "recibidoEn": "2026-09-28T17:29:32.618Z",
+      "versionId": "07b35609-89d4-4061-b53f-824b95bc10e0"
+    },
+    {
+      "id": "f11fe8a7-c29d-4db3-a8bd-0b00b512aae8",
+      "encuestaId": "enc-2",
+      "respuestas": {
+        "p1": "Sí",
+        "p2": "intento123"
+      },
+      "fechaRespuesta": "2026-09-28T17:50:11.334Z",
+      "recibidoEn": "2026-09-28T17:50:11.334Z",
+      "versionId": "edd96990-d7fa-4ce8-a1bd-cefa2891291d"
+    },
+    {
+      "id": "408ef047-985e-4143-88a6-17c47044a06b",
+      "encuestaId": "enc-2",
+      "versionId": "a3c172dc-fdde-48c5-9725-6764268d8bac",
+      "respuestas": {
+        "p1": "Sí",
+        "p2": 3,
+        "f9a5f79c-804d-464d-b2fe-2e6f6e46184c": "s"
+      },
+      "fechaRespuesta": "2026-09-28T23:36:55.211Z",
+      "recibidoEn": "2026-09-28T23:36:55.211Z"
+    },
+    {
+      "id": "7d5714ce-24c6-4cd8-84f7-04477965eb25",
+      "encuestaId": "enc-6d8e81eb",
+      "versionId": "537d25f8-8f52-4e08-bec1-224561e6b82d",
+      "respuestas": {
+        "p-genero": "F",
+        "p-sino": "Sí",
+        "p-idioma": "English",
+        "p-ranking": [
+          "B",
+          "C",
+          "A"
+        ],
+        "p-radio": "Dos",
+        "p-radio-c": "Uno",
+        "p-radio-c-comentario": "porque si",
+        "p-desplegable": "Tres",
+        "p-escala": 4,
+        "p-escala-n": 9,
+        "p-multiple": [
+          "System.Object[]",
+          "Otro: otra cosa"
+        ],
+        "p-multiple-c": [
+          "System.Object[]"
+        ],
+        "p-multiple-c-comentario-X": "comentario X",
+        "p-texto": "respuesta abierta",
+        "p-texto-l": "una linea",
+        "p-texto-p": "varios parrafos",
+        "p-textos-R1": "r1",
+        "p-textos-R2": "r2",
+        "p-numero": 12.5,
+        "p-numero-m-N1": 7,
+        "p-numero-m-N2": 8,
+        "p-fecha": "2026-10-03T10:30",
+        "p-matriz-F1": "Algo",
+        "p-matriz-F2": "Mucho",
+        "p-matriz-5-F1": 3,
+        "p-matriz-5-F2": 5,
+        "p-matriz-10-F1": 8,
+        "p-matriz-aum-F1": "Ampliar",
+        "p-matriz-aum-F2": "Reducir",
+        "p-matriz-sino-F1": "No sé",
+        "p-matriz-sino-F2": "Sí",
+        "p-matriz-txt-F1": "texto f1",
+        "p-matriz-txt-F2": "texto f2",
+        "p-matriz-num-F1": 11,
+        "p-matriz-num-F2": 22,
+        "p-matriz-doble-F1-izq": 2,
+        "p-matriz-doble-F1-der": 5,
+        "p-matriz-doble-F2-izq": 4,
+        "p-matriz-doble-F2-der": 1,
+        "p-matriz-col-C1": "Bien",
+        "p-matriz-col-C2": "Mal",
+        "p-archivo": [
+          "factura.pdf"
+        ]
+      },
+      "fechaRespuesta": "2026-10-04T01:26:15.349Z",
+      "recibidoEn": "2026-10-04T01:26:15.349Z"
+    },
+    {
+      "id": "aec3a6b6-fd47-48dd-a3eb-b13eecd7204f",
+      "encuestaId": "enc-c51f8236",
+      "versionId": "1b2fc769-8a13-4b92-b141-81e7c874c9bd",
+      "respuestas": {
+        "p-genero": "F",
+        "p-sino": "Sí",
+        "p-idioma": "English",
+        "p-ranking": [
+          "B",
+          "C",
+          "A"
+        ],
+        "p-radio": "Dos",
+        "p-radio-c": "Uno",
+        "p-radio-c-comentario": "porque si",
+        "p-desplegable": "Tres",
+        "p-escala": 4,
+        "p-escala-n": 9,
+        "p-multiple": [
+          "X",
+          "Z",
+          "Otro: otra cosa"
+        ],
+        "p-multiple-c": [
+          "X"
+        ],
+        "p-multiple-c-comentario-X": "comentario X",
+        "p-texto": "respuesta abierta",
+        "p-texto-l": "una linea",
+        "p-texto-p": "varios parrafos",
+        "p-textos-R1": "r1",
+        "p-textos-R2": "r2",
+        "p-numero": 12.5,
+        "p-numero-m-N1": 7,
+        "p-numero-m-N2": 8,
+        "p-fecha": "2026-10-03T10:30",
+        "p-matriz-F1": "Algo",
+        "p-matriz-F2": "Mucho",
+        "p-matriz-5-F1": 3,
+        "p-matriz-5-F2": 5,
+        "p-matriz-10-F1": 8,
+        "p-matriz-aum-F1": "Ampliar",
+        "p-matriz-aum-F2": "Reducir",
+        "p-matriz-sino-F1": "No sé",
+        "p-matriz-sino-F2": "Sí",
+        "p-matriz-txt-F1": "texto f1",
+        "p-matriz-txt-F2": "texto f2",
+        "p-matriz-num-F1": 11,
+        "p-matriz-num-F2": 22,
+        "p-matriz-doble-F1-izq": 2,
+        "p-matriz-doble-F1-der": 5,
+        "p-matriz-doble-F2-izq": 4,
+        "p-matriz-doble-F2-der": 1,
+        "p-matriz-col-C1": "Bien",
+        "p-matriz-col-C2": "Mal",
+        "p-archivo": [
+          "factura.pdf"
+        ]
+      },
+      "fechaRespuesta": "2026-10-04T01:26:53.006Z",
+      "recibidoEn": "2026-10-04T01:26:53.006Z"
+    },
+    {
+      "id": "d8ff6ae0-3e4a-40e1-87d2-79768ce8475a",
+      "encuestaId": "enc-2a1beeca",
+      "versionId": "be8bb666-b23a-4110-8fba-46bd39db0d41",
+      "respuestas": {
+        "p-genero": "F",
+        "p-sino": "Sí",
+        "p-idioma": "English",
+        "p-ranking": [
+          "B",
+          "C",
+          "A"
+        ],
+        "p-radio": "Dos",
+        "p-radio-c": "Uno",
+        "p-radio-c-comentario": "porque si",
+        "p-desplegable": "Tres",
+        "p-escala": 4,
+        "p-escala-n": 9,
+        "p-multiple": [
+          "X",
+          "Z",
+          "Otro: otra cosa"
+        ],
+        "p-multiple-c": [
+          "X"
+        ],
+        "p-multiple-c-comentario-X": "comentario X",
+        "p-texto": "respuesta abierta",
+        "p-texto-l": "una linea",
+        "p-texto-p": "varios parrafos",
+        "p-textos-R1": "r1",
+        "p-textos-R2": "r2",
+        "p-numero": 12.5,
+        "p-numero-m-N1": 7,
+        "p-numero-m-N2": 8,
+        "p-fecha": "2026-10-03T10:30",
+        "p-matriz-F1": "Algo",
+        "p-matriz-F2": "Mucho",
+        "p-matriz-5-F1": 3,
+        "p-matriz-5-F2": 5,
+        "p-matriz-10-F1": 8,
+        "p-matriz-aum-F1": "Ampliar",
+        "p-matriz-aum-F2": "Reducir",
+        "p-matriz-sino-F1": "No sé",
+        "p-matriz-sino-F2": "Sí",
+        "p-matriz-txt-F1": "texto f1",
+        "p-matriz-txt-F2": "texto f2",
+        "p-matriz-num-F1": 11,
+        "p-matriz-num-F2": 22,
+        "p-matriz-doble-F1-izq": 2,
+        "p-matriz-doble-F1-der": 5,
+        "p-matriz-doble-F2-izq": 4,
+        "p-matriz-doble-F2-der": 1,
+        "p-matriz-col-C1": "Bien",
+        "p-matriz-col-C2": "Mal",
+        "p-archivo": [
+          "factura.pdf"
+        ]
+      },
+      "fechaRespuesta": "2026-10-04T01:33:45.908Z",
+      "recibidoEn": "2026-10-04T01:33:45.908Z"
+    }
+  ],
+  "enviosCorreo": [
+    {
+      "id": "7a81ad0d-3245-40f3-867d-3c974f404500",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-1",
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder 2 encuestas",
+      "proveedor": "resend",
+      "enviadoEn": "2026-09-28T05:40:47.881Z"
+    },
+    {
+      "id": "c43f6c97-3b0c-41b6-91a9-9de5cbb3725d",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-1"
+      ],
+      "asunto": "DEMCO te invita a responder: Satisfacción del servicio eléctrico",
+      "proveedor": "resend",
+      "enviadoEn": "2026-09-28T06:10:40.843Z"
+    },
+    {
+      "id": "d1cefe0f-4981-4c16-b6fc-9f3767778669",
+      "destinatario": "prueba@ejemplo.com",
+      "encuestaIds": [
+        "enc-1",
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder 2 encuestas",
+      "proveedor": "simulado",
+      "enviadoEn": "2026-09-28T06:45:27.149Z"
+    },
+    {
+      "id": "b0d23f0b-7448-472b-a958-85b1e9edf4b8",
+      "destinatario": "otro@ejemplo.com",
+      "encuestaIds": [
+        "enc-1",
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder 2 encuestas",
+      "proveedor": "simulado",
+      "enviadoEn": "2026-09-28T06:45:27.150Z"
+    },
+    {
+      "id": "583dc0d8-a15b-4690-a1ee-49a53c22cb06",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder: Interés en energía solar",
+      "proveedor": "simulado",
+      "enviadoEn": "2026-09-28T16:43:24.553Z"
+    },
+    {
+      "id": "473d188d-545a-45fd-b136-4796c68b5601",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder: Interés en energía solar",
+      "proveedor": "simulado",
+      "enviadoEn": "2026-09-28T16:46:48.065Z"
+    },
+    {
+      "id": "eb92c782-6ede-4a60-b986-74efc57f4416",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder: Interés en energía solar",
+      "proveedor": "simulado",
+      "enviadoEn": "2026-09-28T16:55:23.407Z"
+    },
+    {
+      "id": "4980da84-f605-497b-9c15-2f91c338d9cd",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-1",
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder 2 encuestas",
+      "proveedor": "resend",
+      "enviadoEn": "2026-09-28T17:27:51.983Z"
+    },
+    {
+      "id": "77a6dd30-f198-4d44-8d4e-d12b01d5d9a0",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder: Interés en energía solar",
+      "proveedor": "resend",
+      "enviadoEn": "2026-09-28T17:49:53.642Z"
+    },
+    {
+      "id": "6adc3345-4da0-4a78-aeab-e69b30991540",
+      "destinatario": "diegovillasana123@gmail.com",
+      "encuestaIds": [
+        "enc-2"
+      ],
+      "asunto": "DEMCO te invita a responder: Interés en energía solar",
+      "proveedor": "resend",
+      "enviadoEn": "2026-09-28T23:36:32.913Z"
+    }
+  ]
+}
